@@ -32,6 +32,9 @@ const characters = [
   }
 ]
 
+/**
+ * HTML ROUTES
+ */
 app.get('/', (req, res) => {
   res.send('May the force be with you!')
 })
@@ -54,9 +57,12 @@ app.get('/api/characters/:routeName', (req, res) => {
   res.json(character)
 })
 
+// add new characters
 app.post('/api/characters/add', (req, res) => {
-  console.log(req.body)
-  res.end()
+  const newCharacter = req.body
+  newCharacter.routeName = newCharacter.name.replace(/ /g, '').toLowerCase()
+  characters.push(newCharacter)
+  res.status(200).send()
 })
 
 app.listen(PORT, () => {

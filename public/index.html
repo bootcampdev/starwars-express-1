@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starwars Express</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Starwars Express</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Search</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/add">Add</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <h1 class="text-center">Welcome to Starwars Express!</h1>
+    <h2 class="text-center">Search a character</h2>
+    <form>
+      <div class="mb-3">
+        <label for="search" class="form-label">Search</label>
+        <input type="text" class="form-control" id="search" aria-describedby="searchHelp">
+        <div id="searchHelp" class="form-text">Search a character by routeName.</div>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-md">
+        <img id="avatar" />
+      </div>
+      <div class="col-md">
+        <p>Name: <span id="name"></span></p>
+        <p>Age: <span id="age"></span></p>
+        <p>Force Points: <span id="forcePoints"></span></p>
+        <p>Role: <span id="role"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    const form = $('form')
+    const searchInput = $('#search')
+    const avatar = $('#avatar')
+    const name = $('#name')
+    const age = $('#age')
+    const role = $('#role')
+    const forcePoints = $('#forcePoints')
+
+    form.on('submit', e => {
+      e.preventDefault()
+      const searchTerm = searchInput.val()
+      $.ajax(`/api/characters/${searchTerm}`)
+        .then(characterData => {
+          avatar.attr('src', characterData.avatar)
+          name.text(characterData.name)
+          age.text(characterData.age)
+          role.text(characterData.role)
+          forcePoints.text(characterData.forcePoints)
+        })
+    })
+  </script>
+</body>
+</html>

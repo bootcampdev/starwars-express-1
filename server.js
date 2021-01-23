@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const app = express()
 const PORT = 3000
@@ -36,7 +37,11 @@ const characters = [
  * HTML ROUTES
  */
 app.get('/', (req, res) => {
-  res.send('May the force be with you!')
+  res.sendFile( path.join(__dirname + '/public/index.html'))
+})
+
+app.get('/add', (req, res) => {
+  res.sendFile( path.join(__dirname + '/public/add.html'))
 })
 
 /**

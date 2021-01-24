@@ -83,6 +83,8 @@ app.get('/api/characters/:routeName', (req, res) => {
 // adding a new character, it is being sent via the body (using postman)
 
 app.post('/api/characters/add', (req, res) => {
+
+  console.log(req.body);
   const newCharacter = req.body
 
   // make new route name based on the name, remove spaces and lower case
